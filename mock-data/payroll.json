@@ -1,0 +1,33 @@
+[
+  {
+    "employeeId": "1",
+    "month": "2026-03",
+    "salary": 5000,
+    "incentives": 500,
+    "paymentType": "bank",
+    "bankDetails": {
+      "bankName": "Bank of America",
+      "accountNumber": "1234567890",
+      "ifsc": "BOFA0001234"
+    }
+  },
+  {
+    "employeeId": "2",
+    "month": "2026-03",
+    "salary": 7000,
+    "incentives": 700,
+    "paymentType": "cash"
+  },
+  {
+    "employeeId": "3",
+    "month": "2026-03",
+    "salary": 4000,
+    "incentives": 300,
+    "paymentType": "bank",
+    "bankDetails": {
+      "bankName": "HSBC",
+      "accountNumber": "9876543210",
+      "ifsc": "HSBC0004321"
+    }
+  }
+]

@@ -1,0 +1,16 @@
+[
+  {
+    "employeeId": "1",
+    "month": "2026-03",
+    "bankName": "Bank of America",
+    "accountNumber": "1234567890",
+    "ifsc": "BOFA0001234"
+  },
+  {
+    "employeeId": "3",
+    "month": "2026-03",
+    "bankName": "HSBC",
+    "accountNumber": "9876543210",
+    "ifsc": "HSBC0004321"
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "id": "1",
+    "name": "John Doe",
+    "email": "john.doe@example.com",
+    "employeeCode": "EMP001",
+    "dob": "1990-01-15",
+    "doj": "2020-06-01",
+    "branch": "New York",
+    "designation": "Software Engineer",
+    "active": true
+  },
+  {
+    "id": "2",
+    "name": "Jane Smith",
+    "email": "jane.smith@example.com",
+    "employeeCode": "EMP002",
+    "dob": "1985-09-23",
+    "doj": "2018-03-12",
+    "branch": "San Francisco",
+    "designation": "Product Manager",
+    "active": true
+  },
+  {
+    "id": "3",
+    "name": "Alice Brown",
+    "email": "alice.brown@example.com",
+    "employeeCode": "EMP003",
+    "dob": "1992-07-30",
+    "doj": "2021-01-10",
+    "branch": "London",
+    "designation": "QA Analyst",
+    "active": false
+  }
+]
