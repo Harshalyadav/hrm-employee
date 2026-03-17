@@ -189,7 +189,7 @@ export default function EmployeeDashboardPage() {
             <button
               type="button"
               onClick={handleDownloadSlip}
-              className="mt-4 w-full rounded-lg bg-[#111827] py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+              className="mt-4 w-full rounded-lg bg-blue-600 py-3 text-sm font-semibold text-white transition hover:bg-blue-700"
             >
               Download Salary Slip
             </button>

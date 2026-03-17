@@ -230,7 +230,7 @@ export default function EmployeePaymentDetailsPage() {
                 type="button"
                 onClick={handleDownloadSlip}
                 disabled={!selectedPayroll}
-                className="rounded-xl bg-[#111827] px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-50"
+                className="rounded-xl bg-blue-600 px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-blue-700 disabled:cursor-not-allowed disabled:opacity-50"
               >
                 Download Salary Slip
               </button>
@@ -277,7 +277,7 @@ export default function EmployeePaymentDetailsPage() {
                   {saveMessage ? <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[12px] font-medium text-emerald-700">{saveMessage}</div> : null}
 
                   <div className="mt-5 flex flex-wrap gap-3">
-                    <button type="submit" className="rounded-xl bg-[#111827] px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-slate-800">
+                    <button type="submit" className="rounded-xl bg-blue-600 px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-blue-700">
                       Save Payment Details
                     </button>
                     <button type="button" onClick={handleDownloadSlip} className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-[12px] font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">

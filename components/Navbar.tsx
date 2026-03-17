@@ -83,7 +83,7 @@ const Navbar: React.FC<NavbarProps> = ({ role = 'admin' }) => {
           <button
             type="button"
             onClick={handleLogout}
-            className="ml-2 rounded-lg bg-[#111827] px-3 py-2 text-[11px] font-semibold text-white transition hover:bg-slate-800"
+            className="ml-2 rounded-lg bg-blue-600 px-3 py-2 text-[11px] font-semibold text-white transition hover:bg-blue-700"
           >
             Logout
           </button>

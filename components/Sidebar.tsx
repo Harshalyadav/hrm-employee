@@ -101,21 +101,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           })}
         </nav>
 
-        <div className="border-t border-slate-200 px-4 py-4">
-          <button
-            onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
-            aria-label="Logout"
-            type="button"
-          >
-            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
-              <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" strokeLinecap="round" />
-              <path d="M10 17l5-5-5-5" strokeLinecap="round" strokeLinejoin="round" />
-              <path d="M15 12H3" strokeLinecap="round" />
-            </svg>
-            <span>Logout</span>
-          </button>
-        </div>
+        {/* Logout button removed as per new design */}
       </aside>
     );
   }
@@ -144,7 +130,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           );
         })}
       </nav>
-      <button onClick={handleLogout} className="grid h-11 w-11 place-items-center rounded-lg border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-900" aria-label="Logout" type="button">
+      <button onClick={handleLogout} className="grid h-11 w-11 place-items-center rounded-lg bg-blue-600 text-white transition hover:bg-blue-700" aria-label="Logout" type="button">
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" strokeLinecap="round" />
           <path d="M10 17l5-5-5-5" strokeLinecap="round" strokeLinejoin="round" />
