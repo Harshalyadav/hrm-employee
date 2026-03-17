@@ -1,9 +1,5 @@
+"use client";
 import React from 'react';
-import { Metadata } from 'next';
-
-export const metadata: Metadata = {
-  title: 'Employee Dashboard',
-};
 
 export default function EmployeeDashboardPage() {
   const [employee, setEmployee] = React.useState<any | null>(null);

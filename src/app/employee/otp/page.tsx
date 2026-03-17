@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Metadata } from 'next';
 
-export const metadata: Metadata = {
-  title: 'Employee OTP',
-};
+"use client";
+import React, { useState, useEffect } from 'react';
 
 export default function EmployeeOtpPage() {
   const [timer, setTimer] = useState(60);

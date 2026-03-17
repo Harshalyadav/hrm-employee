@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import AdminShell from '../../../../components/AdminShell';
 import { EmployeeRecord, getEmployeeById, upsertEmployee } from '../../../lib/employeeStore';
@@ -29,6 +29,7 @@ const initialState: EmployeeRecord = {
   paymentMode: 'Bank',
 };
 
+
 const sectionTabs = [
   'Personal Details',
   'Contact Details',
@@ -38,6 +39,14 @@ const sectionTabs = [
 ];
 
 export default function AddEmployeePage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <AddEmployeeForm />
+    </Suspense>
+  );
+}
+
+function AddEmployeeForm() {
   const [form, setForm] = useState(initialState);
   const [loading, setLoading] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -56,8 +65,12 @@ export default function AddEmployeePage() {
   }, [id]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
-    const { name, value, type, checked } = e.target;
-    setForm(f => ({ ...f, [name]: type === 'checkbox' ? checked : value }));
+    const { name, value, type } = e.target;
+    if (type === 'checkbox' && 'checked' in e.target) {
+      setForm(f => ({ ...f, [name]: (e.target as HTMLInputElement).checked }));
+    } else {
+      setForm(f => ({ ...f, [name]: value }));
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -103,8 +116,8 @@ export default function AddEmployeePage() {
               <Field label="Employee Name*" name="name" value={form.name} onChange={handleChange} placeholder="Enter employee name" />
               <SelectField label="Gender" name="gender" value={form.gender ?? ''} onChange={handleChange} options={['Male', 'Female', 'Other']} />
               <Field label="Date of Birth" name="dob" type="date" value={form.dob} onChange={handleChange} />
-              <SelectField label="Blood Group" name="bloodGroup" value={form.bloodGroup ?? ''} onChange={handleChange} options={['A+', 'B+', 'O+', 'AB+']} />
-              <SelectField label="Marital Status" name="maritalStatus" value={form.maritalStatus ?? ''} onChange={handleChange} options={['Single', 'Married', 'Divorced']} />
+              <SelectField label="Blood Group" name="bloodGroup" value={form.bloodGroup ?? ''} onChange={handleChange} options={['A+','B+','O+','AB+']} />
+              <SelectField label="Marital Status" name="maritalStatus" value={form.maritalStatus ?? ''} onChange={handleChange} options={['Single','Married','Divorced']} />
               <Field label="Unique Worker ID" name="employeeCode" value={form.employeeCode} onChange={handleChange} placeholder="Enter worker ID" />
             </div>
           </section>
@@ -134,15 +147,15 @@ export default function AddEmployeePage() {
           <section>
             <h2 className="mb-5 text-2xl font-bold text-slate-800">Employment Details</h2>
             <div className="grid gap-5 md:grid-cols-2">
-              <SelectField label="Select Role" name="role" value={form.role ?? ''} onChange={handleChange} options={['HR Manager', 'Admin', 'Software Engineer', 'Product Manager', 'QA Analyst']} />
-              <SelectField label="Branch" name="branch" value={form.branch} onChange={handleChange} options={['New York', 'San Francisco', 'London', 'Dubai']} />
+              <SelectField label="Select Role" name="role" value={form.role ?? ''} onChange={handleChange} options={['HR Manager','Admin','Software Engineer','Product Manager','QA Analyst']} />
+              <SelectField label="Branch" name="branch" value={form.branch} onChange={handleChange} options={['New York','San Francisco','London','Dubai']} />
               <Field label="Date of Joining" name="doj" type="date" value={form.doj} onChange={handleChange} />
               <Field label="Designation" name="designation" value={form.designation} onChange={handleChange} placeholder="Enter designation" />
               <Field label="Basic Salary" name="salary" value={form.salary ?? ''} onChange={handleChange} placeholder="Enter salary" />
               <div>
                 <label className="mb-2 block text-sm font-semibold text-slate-600">Payment Mode</label>
                 <div className="grid grid-cols-3 rounded-2xl bg-slate-100 p-1 text-sm font-semibold text-slate-500">
-                  {['Cash', 'Cheque', 'Bank'].map((mode) => (
+                  {['Cash','Cheque','Bank'].map((mode) => (
                     <button
                       key={mode}
                       type="button"

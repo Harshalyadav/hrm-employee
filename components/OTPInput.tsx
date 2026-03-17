@@ -25,7 +25,9 @@ const OTPInput: React.FC<OTPInputProps> = ({ value, onChange, length = 6 }) => {
       {inputs.map((_, idx) => (
         <input
           key={idx}
-          ref={(el) => (refs.current[idx] = el!)}
+          ref={(el) => {
+            refs.current[idx] = el!;
+          }}
           type="text"
           maxLength={1}
           value={value[idx] || ''}
