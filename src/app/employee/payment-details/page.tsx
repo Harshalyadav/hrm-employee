@@ -172,10 +172,27 @@ export default function EmployeePaymentDetailsPage() {
                 Review monthly payouts, transfer methods, and bank details in a cleaner layout with clearer figures and stronger status visibility.
               </p>
 
-              <div className="mt-6 flex flex-wrap gap-3">
-                <HeroChip label="Employee" value={employee.employeeCode} />
-                <HeroChip label="Designation" value={employee.designation} />
-                <HeroChip label="Branch" value={employee.branch} />
+              <div className="mt-4 overflow-x-auto">
+                <table className="min-w-85 text-[15px] border-separate border-spacing-y-2">
+                  <tbody>
+                    <tr>
+                      <td className="font-medium text-slate-500 pr-4">Account Holder</td>
+                      <td className="font-semibold text-slate-900">{employee.name}</td>
+                    </tr>
+                    <tr>
+                      <td className="font-medium text-slate-500 pr-4">Employee Code</td>
+                      <td className="font-semibold text-slate-900">{employee.employeeCode}</td>
+                    </tr>
+                    <tr>
+                      <td className="font-medium text-slate-500 pr-4">Designation</td>
+                      <td className="font-semibold text-slate-900">{employee.designation}</td>
+                    </tr>
+                    <tr>
+                      <td className="font-medium text-slate-500 pr-4">Branch</td>
+                      <td className="font-semibold text-slate-900">{employee.branch}</td>
+                    </tr>
+                  </tbody>
+                </table>
               </div>
             </div>
 
@@ -191,36 +208,45 @@ export default function EmployeePaymentDetailsPage() {
         </section>
 
         <section className="rounded-[28px] border border-slate-200 bg-white px-6 py-6 shadow-[0_10px_28px_rgba(15,23,42,0.05)] lg:px-8">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-            <div>
-              <h2 className="text-xl font-semibold tracking-[-0.03em] text-slate-950">Monthly Payment Summary</h2>
-              <p className="mt-2 text-[13px] text-slate-600">Choose a payroll month to review your payout breakdown and transfer details.</p>
+            <div className="flex flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
+              <div>
+                <h2 className="text-xl font-semibold tracking-[-0.03em] text-slate-950">Monthly Payment Summary</h2>
+                <p className="mt-1 text-[13px] text-slate-600">Choose a payroll month to review your payout breakdown and transfer details.</p>
+              </div>
+              <div className="flex gap-2 items-center mt-2 lg:mt-0">
+                <select
+                  value={selectedMonth}
+                  onChange={(event) => setSelectedMonth(event.target.value)}
+                  className="min-w-45 rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-[13px] font-medium text-slate-800 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+                >
+                  {records.map((record) => (
+                    <option key={record.month} value={record.month}>{formatMonthLabel(record.month)}</option>
+                  ))}
+                </select>
+                <button
+                  type="button"
+                  className="rounded-lg bg-blue-600 px-3 py-2 text-[12px] font-semibold text-white transition hover:bg-blue-700"
+                  disabled={records.length < 2 || !selectedMonth}
+                  onClick={() => {
+                    const idx = records.findIndex(r => r.month === selectedMonth);
+                    if (idx > 0) {
+                      const prev = records[idx - 1];
+                      setBankForm(prev.bankDetails || { bankName: '', accountNumber: '', ifsc: '' });
+                    }
+                  }}
+                >
+                  Copy Previous Month
+                </button>
+              </div>
             </div>
-            <select
-              value={selectedMonth}
-              onChange={(event) => setSelectedMonth(event.target.value)}
-              className="min-w-45 rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-[13px] font-medium text-slate-800 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
-            >
-              {records.map((record) => (
-                <option key={record.month} value={record.month}>{formatMonthLabel(record.month)}</option>
-              ))}
-            </select>
-          </div>
 
-          {selectedPayroll ? (
-            <div className="mt-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-              <SummaryCard label="Total Payout" value={formatCurrency(totalPayout)} tone="blue" />
-              <SummaryCard label="Base Salary" value={formatCurrency(selectedPayroll.salary || 0)} tone="slate" />
-              <SummaryCard label="Incentive" value={formatCurrency(selectedPayroll.incentives || 0)} tone="emerald" />
-              <SummaryCard label="Payment Status" value={selectedPayroll.paymentType === 'cash' ? 'Paid in Cash' : 'Transferred'} tone="amber" />
-            </div>
-          ) : (
-            <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-5 text-sm text-slate-600">No payment records are available for this employee.</div>
+          {selectedPayroll ? null : (
+            <div className="mt-4 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4 text-sm text-slate-600">No payment records are available for this employee.</div>
           )}
         </section>
 
-        <div className="grid gap-6 xl:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
-          <section className="rounded-[28px] border border-slate-200 bg-white px-6 py-6 shadow-[0_10px_28px_rgba(15,23,42,0.05)] lg:px-8">
+        <div className="grid gap-4 xl:grid-cols-[minmax(0,1.15fr)_minmax(360px,0.85fr)]">
+          <section className="rounded-[28px] border border-slate-200 bg-white px-6 py-5 shadow-[0_10px_28px_rgba(15,23,42,0.05)] lg:px-8">
             <div className="flex flex-col gap-4 lg:flex-row lg:items-start lg:justify-between">
               <div>
                 <h2 className="text-xl font-semibold tracking-[-0.03em] text-slate-950">Bank And Payout Details</h2>
@@ -247,44 +273,41 @@ export default function EmployeePaymentDetailsPage() {
                 </p>
               </div>
             ) : selectedPayroll ? (
-              <div className="mt-6 space-y-5">
-                <div className="grid gap-4 sm:grid-cols-2">
-                  <DetailCard label="Bank Name" value={bankForm.bankName || 'Not set'} accent="blue" />
-                  <DetailCard label="Account Number" value={maskAccountNumber(bankForm.accountNumber)} accent="slate" />
-                  <DetailCard label="IFSC Code" value={bankForm.ifsc || 'Not set'} accent="emerald" />
-                  <DetailCard label="Transfer Method" value="Bank Transfer" accent="amber" />
+              <div className="mt-4 space-y-4">
+                <div className="overflow-x-auto">
+                  <table className="min-w-85 text-[15px] border-separate border-spacing-y-2">
+                    <tbody>
+                      <tr>
+                        <td className="font-medium text-slate-500 pr-4">Account Holder</td>
+                        <td className="font-semibold text-slate-900">{employee?.name || 'Not set'}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-medium text-slate-500 pr-4">Bank Name</td>
+                        <td className="font-semibold text-slate-900">{bankForm.bankName || 'Not set'}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-medium text-slate-500 pr-4">Account Number</td>
+                        <td className="font-semibold text-slate-900">{maskAccountNumber(bankForm.accountNumber)}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-medium text-slate-500 pr-4">IFSC Code</td>
+                        <td className="font-semibold text-slate-900">{bankForm.ifsc || 'Not set'}</td>
+                      </tr>
+                      <tr>
+                        <td className="font-medium text-slate-500 pr-4">Transfer Method</td>
+                        <td className="font-semibold text-slate-900">Bank Transfer</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
 
-                <form onSubmit={handleSaveBankDetails} className="rounded-3xl border border-slate-200 bg-slate-50 p-6">
-                  <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                    <div>
-                      <h3 className="text-lg font-semibold tracking-[-0.02em] text-slate-950">Update bank details</h3>
-                      <p className="mt-1 text-[13px] text-slate-600">Changes apply to {formatMonthLabel(selectedPayroll.month)} only.</p>
-                    </div>
-                    <Link href="/employee/dashboard" className="text-[12px] font-medium text-slate-600 transition hover:text-slate-900">
-                      Back to Dashboard
-                    </Link>
-                  </div>
-
-                  <div className="mt-5 grid gap-4 md:grid-cols-2">
-                    <PaymentInput label="Bank Name" value={bankForm.bankName} onChange={(value) => setBankForm((current) => ({ ...current, bankName: value }))} />
-                    <PaymentInput label="Account Number" value={bankForm.accountNumber} onChange={(value) => setBankForm((current) => ({ ...current, accountNumber: value }))} />
-                    <div className="md:col-span-2">
-                      <PaymentInput label="IFSC Code" value={bankForm.ifsc} onChange={(value) => setBankForm((current) => ({ ...current, ifsc: value }))} />
-                    </div>
-                  </div>
-
-                  {saveMessage ? <div className="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-[12px] font-medium text-emerald-700">{saveMessage}</div> : null}
-
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <button type="submit" className="rounded-xl bg-blue-600 px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-blue-700">
-                      Save Payment Details
+                {/* <div className="flex justify-end">
+                  <Link href="/employee/update-bank-details">
+                    <button type="button" className="rounded-xl bg-blue-600 px-5 py-3 text-[12px] font-semibold text-white transition hover:bg-blue-700">
+                      Update Bank Details
                     </button>
-                    <button type="button" onClick={handleDownloadSlip} className="rounded-xl border border-slate-300 bg-white px-5 py-3 text-[12px] font-semibold text-slate-700 transition hover:border-slate-400 hover:text-slate-900">
-                      Download Current Slip
-                    </button>
-                  </div>
-                </form>
+                  </Link>
+                </div> */}
               </div>
             ) : (
               <div className="mt-6 rounded-2xl border border-slate-200 bg-slate-50 px-5 py-5 text-sm text-slate-600">Select a payroll month to inspect bank details.</div>
@@ -321,17 +344,20 @@ export default function EmployeePaymentDetailsPage() {
                       <div>
                         <div className="text-lg font-semibold tracking-[-0.02em] text-slate-950">{formatMonthCompact(record.month)}</div>
                         <div className="mt-1 text-sm text-slate-500">{record.paymentType === 'cash' ? 'Cash payout' : 'Bank transfer'}</div>
+                        {record.bankDetails && (
+                          <div className="mt-2 text-xs text-slate-700 flex flex-wrap gap-4">
+                            <span><span className="font-medium text-slate-500">Bank:</span> <span className="font-semibold text-slate-900">{record.bankDetails.bankName}</span></span>
+                            <span><span className="font-medium text-slate-500">Account:</span> <span className="font-semibold text-slate-900">{record.bankDetails.accountNumber ? `•••• ${record.bankDetails.accountNumber.slice(-4)}` : 'Not set'}</span></span>
+                            <span><span className="font-medium text-slate-500">IFSC:</span> <span className="font-semibold text-slate-900">{record.bankDetails.ifsc}</span></span>
+                          </div>
+                        )}
                       </div>
                       <span className={`rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] ${record.paymentType === 'cash' ? 'bg-amber-100 text-amber-800' : 'bg-emerald-100 text-emerald-700'}`}>
                         {record.paymentType === 'cash' ? 'Cash' : 'Processed'}
                       </span>
                     </div>
 
-                    <div className="mt-5 grid gap-3 sm:grid-cols-3">
-                      <MiniMetric label="Salary" value={formatCurrency(record.salary || 0)} />
-                      <MiniMetric label="Incentive" value={formatCurrency(record.incentives || 0)} />
-                      <MiniMetric label="Total" value={formatCurrency(payout)} strong />
-                    </div>
+                    {/* MiniMetrics for Salary, Incentive, Total removed as per request */}
                   </button>
                 );
               })}

@@ -37,7 +37,7 @@ export default function EmployeeLoginPage() {
   return (
     <div className="min-h-screen bg-[linear-gradient(180deg,#dcecff_0%,#edf4ff_55%,#f6f9ff_100%)] px-4 py-10 md:px-6">
       <div className="mx-auto grid min-h-[calc(100vh-5rem)] w-full max-w-6xl overflow-hidden rounded-4xl border border-white/70 bg-white shadow-[0_24px_70px_rgba(37,99,235,0.10)] lg:grid-cols-[1.05fr_0.95fr]">
-        <section className="hidden bg-[linear-gradient(160deg,#0f172a_0%,#1d4ed8_55%,#60a5fa_100%)] px-10 py-12 text-white lg:flex lg:flex-col lg:justify-between">
+        <section className="hidden bg-[linear-gradient(160deg,#172554_0%,#2563eb_60%,#3b82f6_100%)] px-10 py-12 text-white lg:flex lg:flex-col lg:justify-between">
           <div>
             <BrandMark />
             <div className="mt-8 inline-flex rounded-full bg-white/12 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-blue-100 ring-1 ring-white/15">

@@ -198,7 +198,7 @@ export default function EmployeeDashboardPage() {
           <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
             <div className="flex items-center justify-between gap-3">
               <h2 className="text-lg font-semibold text-slate-900">Payment Details</h2>
-              <Link href="/employee/payment-details" className="text-sm font-medium text-slate-600 hover:text-slate-900">
+              <Link href="/employee/payment-details" className="rounded-lg bg-blue-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-blue-700">
                 Full View
               </Link>
             </div>
