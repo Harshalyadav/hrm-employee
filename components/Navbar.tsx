@@ -1,3 +1,5 @@
+"use client";
+
 import React from 'react';
 
 function SearchIcon() {
@@ -19,6 +21,22 @@ function BellIcon() {
 }
 
 const Navbar: React.FC = () => {
+  const [currentUser, setCurrentUser] = React.useState({
+    name: 'User',
+    secondary: '',
+  });
+
+  React.useEffect(() => {
+    const storedName = window.localStorage.getItem('userName');
+    const storedEmail = window.localStorage.getItem('userEmail');
+    const storedRole = window.localStorage.getItem('userRole');
+
+    setCurrentUser({
+      name: storedName || 'User',
+      secondary: storedEmail || storedRole || '',
+    });
+  }, []);
+
   return (
     <nav className="flex items-center justify-between gap-4 rounded-[22px] border border-white/70 bg-white/80 px-5 py-3 shadow-[0_10px_30px_rgba(88,136,177,0.12)] backdrop-blur">
       <div className="flex min-w-0 flex-1 items-center gap-3">
@@ -46,8 +64,8 @@ const Navbar: React.FC = () => {
         <div className="max-sm:hidden sm:flex sm:items-center gap-3 rounded-2xl bg-white px-3 py-2 shadow-sm">
           <div className="h-11 w-11 overflow-hidden rounded-full bg-[radial-gradient(circle_at_top,#f6d365,#fda085)]" />
           <div className="leading-tight">
-            <div className="text-sm font-bold text-slate-800">SourabhDaharia</div>
-            <div className="text-xs text-slate-500">Manager</div>
+            <div className="text-sm font-bold text-slate-800">{currentUser.name}</div>
+            <div className="text-xs text-slate-500">{currentUser.secondary}</div>
           </div>
         </div>
       </div>

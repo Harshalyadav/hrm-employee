@@ -2,7 +2,8 @@
 
 import Link from 'next/link';
 import React from 'react';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
+import { clearAuthenticatedEmployee } from '@/lib/employeeSession';
 
 interface SidebarProps {
   role: 'admin' | 'employee';
@@ -27,10 +28,17 @@ const icons: Record<string, React.ReactNode> = {
       <path d="M12 5v14M5 12h14" strokeLinecap="round" />
     </svg>
   ),
+  Portal: (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="4" y="5" width="16" height="14" rx="2" />
+      <path d="M8 9h8M8 13h5" strokeLinecap="round" />
+    </svg>
+  ),
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ role }) => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const adminLinks = [
     { href: '/dashboard', label: 'Dashboard' },
@@ -43,6 +51,11 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
   ];
 
   const links = role === 'admin' ? adminLinks : employeeLinks;
+
+  const handleLogout = () => {
+    clearAuthenticatedEmployee();
+    router.push('/employee/login');
+  };
 
   return (
     <aside className="fixed inset-y-0 left-0 z-40 flex w-20 flex-col items-center border-r border-white/60 bg-[linear-gradient(180deg,#8fd2fa_0%,#c7efff_45%,#effaff_100%)] px-3 py-4 shadow-[8px_0_30px_rgba(72,124,167,0.12)]">
@@ -68,7 +81,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           );
         })}
       </nav>
-      <button className="grid h-11 w-11 place-items-center rounded-2xl border border-transparent bg-white/70 text-slate-500 transition hover:bg-white hover:text-blue-600" aria-label="Logout">
+      <button onClick={handleLogout} className="grid h-11 w-11 place-items-center rounded-2xl border border-transparent bg-white/70 text-slate-500 transition hover:bg-white hover:text-blue-600" aria-label="Logout" type="button">
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" strokeLinecap="round" />
           <path d="M10 17l5-5-5-5" strokeLinecap="round" strokeLinejoin="round" />

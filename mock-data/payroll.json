@@ -12,6 +12,25 @@
     }
   },
   {
+    "employeeId": "1",
+    "month": "2026-02",
+    "salary": 4900,
+    "incentives": 350,
+    "paymentType": "bank",
+    "bankDetails": {
+      "bankName": "Chase Bank",
+      "accountNumber": "2200110099",
+      "ifsc": "CHAS0002200"
+    }
+  },
+  {
+    "employeeId": "1",
+    "month": "2026-01",
+    "salary": 4800,
+    "incentives": 250,
+    "paymentType": "cash"
+  },
+  {
     "employeeId": "2",
     "month": "2026-03",
     "salary": 7000,
@@ -19,10 +38,34 @@
     "paymentType": "cash"
   },
   {
+    "employeeId": "2",
+    "month": "2026-02",
+    "salary": 6900,
+    "incentives": 650,
+    "paymentType": "bank",
+    "bankDetails": {
+      "bankName": "Citi Bank",
+      "accountNumber": "7788990011",
+      "ifsc": "CITI0007788"
+    }
+  },
+  {
     "employeeId": "3",
     "month": "2026-03",
     "salary": 4000,
     "incentives": 300,
+    "paymentType": "bank",
+    "bankDetails": {
+      "bankName": "HSBC",
+      "accountNumber": "9876543210",
+      "ifsc": "HSBC0004321"
+    }
+  },
+  {
+    "employeeId": "3",
+    "month": "2026-02",
+    "salary": 3950,
+    "incentives": 250,
     "paymentType": "bank",
     "bankDetails": {
       "bankName": "HSBC",
