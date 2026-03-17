@@ -34,6 +34,13 @@ const icons: Record<string, React.ReactNode> = {
       <path d="M8 9h8M8 13h5" strokeLinecap="round" />
     </svg>
   ),
+  'Payment Details': (
+    <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+      <rect x="3" y="7" width="18" height="10" rx="2" />
+      <path d="M7 12h10" strokeLinecap="round" />
+      <circle cx="12" cy="12" r="2" />
+    </svg>
+  ),
 };
 
 const Sidebar: React.FC<SidebarProps> = ({ role }) => {
@@ -48,6 +55,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
 
   const employeeLinks = [
     { href: '/employee/dashboard', label: 'Dashboard' },
+    { href: '/employee/payment-details', label: 'Payment Details' },
   ];
 
   const links = role === 'admin' ? adminLinks : employeeLinks;
@@ -57,10 +65,65 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
     router.push('/employee/login');
   };
 
+  if (role === 'employee') {
+    return (
+      <aside className="fixed inset-y-4 left-2 z-40 flex w-64 flex-col overflow-hidden rounded-[26px] border border-white/80 bg-white shadow-[0_16px_40px_rgba(30,64,175,0.10)]">
+        <div className="flex items-center justify-between border-b border-slate-200 px-5 py-5">
+          <div>
+            <div className="text-[13px] font-semibold tracking-[-0.02em] text-sky-500">My Hrms Cloud</div>
+            <div className="mt-1 text-[10px] uppercase tracking-[0.16em] text-slate-400">Employee Portal</div>
+          </div>
+          <button type="button" className="rounded-full p-1 text-slate-400 transition hover:bg-slate-100 hover:text-slate-700" aria-label="Close navigation">
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M6 6l12 12M18 6L6 18" strokeLinecap="round" />
+            </svg>
+          </button>
+        </div>
+
+        <nav className="flex-1 space-y-2 px-4 py-5">
+          {links.map((link) => {
+            const isActive = pathname === link.href || (link.href !== '/dashboard' && pathname.startsWith(link.href));
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                className={`flex items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-medium transition ${
+                  isActive
+                    ? 'bg-[linear-gradient(135deg,#4da8e8_0%,#5bb5f1_100%)] text-white shadow-[0_10px_24px_rgba(91,181,241,0.25)]'
+                    : 'text-slate-700 hover:bg-slate-50 hover:text-slate-900'
+                }`}
+                title={link.label}
+              >
+                <span className={`${isActive ? 'text-white' : 'text-slate-500'}`}>{icons[link.label]}</span>
+                <span>{link.label}</span>
+              </Link>
+            );
+          })}
+        </nav>
+
+        <div className="border-t border-slate-200 px-4 py-4">
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-[13px] font-semibold text-slate-700 transition hover:bg-slate-50 hover:text-slate-900"
+            aria-label="Logout"
+            type="button"
+          >
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
+              <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" strokeLinecap="round" />
+              <path d="M10 17l5-5-5-5" strokeLinecap="round" strokeLinejoin="round" />
+              <path d="M15 12H3" strokeLinecap="round" />
+            </svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+    );
+  }
+
   return (
-    <aside className="fixed inset-y-0 left-0 z-40 flex w-20 flex-col items-center border-r border-white/60 bg-[linear-gradient(180deg,#8fd2fa_0%,#c7efff_45%,#effaff_100%)] px-3 py-4 shadow-[8px_0_30px_rgba(72,124,167,0.12)]">
-      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-[linear-gradient(180deg,#1695ff,#2167ff)] text-white shadow-lg shadow-blue-300/40">
-        <span className="text-lg font-bold">H</span>
+    <aside className="fixed inset-y-0 left-0 z-40 flex w-20 flex-col items-center border-r border-slate-200 bg-white px-3 py-4 shadow-[0_2px_8px_rgba(15,23,42,0.06)]">
+      <div className="grid h-12 w-12 place-items-center rounded-lg bg-[#111827] text-white">
+        <span className="text-lg font-semibold">H</span>
       </div>
       <nav className="mt-6 flex flex-1 flex-col items-center gap-4">
         {links.map((link) => {
@@ -69,10 +132,10 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
             <Link
               key={link.href}
               href={link.href}
-              className={`grid h-11 w-11 place-items-center rounded-2xl border text-slate-600 transition ${
+              className={`grid h-11 w-11 place-items-center rounded-lg border text-slate-600 transition ${
                 isActive
-                  ? 'border-blue-200 bg-white text-blue-600 shadow-md shadow-blue-100'
-                  : 'border-transparent bg-white/60 hover:border-white hover:bg-white hover:text-blue-600'
+                  ? 'border-slate-900 bg-slate-900 text-white'
+                  : 'border-slate-200 bg-white hover:border-slate-300 hover:bg-slate-50 hover:text-slate-900'
               }`}
               title={link.label}
             >
@@ -81,7 +144,7 @@ const Sidebar: React.FC<SidebarProps> = ({ role }) => {
           );
         })}
       </nav>
-      <button onClick={handleLogout} className="grid h-11 w-11 place-items-center rounded-2xl border border-transparent bg-white/70 text-slate-500 transition hover:bg-white hover:text-blue-600" aria-label="Logout" type="button">
+      <button onClick={handleLogout} className="grid h-11 w-11 place-items-center rounded-lg border border-slate-200 bg-white text-slate-500 transition hover:border-slate-300 hover:text-slate-900" aria-label="Logout" type="button">
         <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
           <path d="M15 3h4a2 2 0 012 2v14a2 2 0 01-2 2h-4" strokeLinecap="round" />
           <path d="M10 17l5-5-5-5" strokeLinecap="round" strokeLinejoin="round" />

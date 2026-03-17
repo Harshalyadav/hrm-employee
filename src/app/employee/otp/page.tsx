@@ -62,36 +62,35 @@ export default function EmployeeOtpPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#7ec9f5_0%,#bce8ff_42%,#f8fcff_100%)] px-4 py-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.8),transparent_42%),radial-gradient(circle_at_bottom_left,rgba(195,240,255,0.95),transparent_38%)]" />
-      <div className="relative w-full max-w-lg rounded-[34px] border border-white/70 bg-white/86 p-8 shadow-[0_30px_90px_rgba(63,135,191,0.18)] backdrop-blur md:p-10">
+    <div className="flex min-h-screen items-center justify-center bg-[#F9FAFB] px-4 py-12">
+      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-8 shadow-[0_2px_8px_rgba(15,23,42,0.08)] md:p-10">
         <div className="text-center">
-          <div className="mx-auto grid h-16 w-16 place-items-center rounded-3xl bg-[linear-gradient(180deg,#1695ff,#2167ff)] text-2xl font-black text-white shadow-xl shadow-blue-300/40">
+          <div className="mx-auto grid h-14 w-14 place-items-center rounded-lg bg-[#111827] text-xl font-bold text-white">
             O
           </div>
-          <h1 className="mt-7 text-4xl font-black tracking-[-0.04em] text-slate-900">Verify OTP</h1>
-          <p className="mt-3 text-sm text-slate-500">Enter the 6-digit code sent to <span className="font-semibold text-slate-700">{email || 'your email'}</span>.</p>
+          <h1 className="mt-6 text-3xl font-semibold text-slate-900">Enter OTP</h1>
+          <p className="mt-2 text-sm text-slate-500">Enter the 6-digit code sent to <span className="font-medium text-slate-700">{email || 'your email'}</span>.</p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-10 space-y-6">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-6">
           <div className="space-y-3">
-            <label className="block text-sm font-semibold text-slate-500">One-Time Password</label>
+            <label className="block text-sm font-medium text-slate-700">OTP Verification</label>
             <OTPInput value={otp} onChange={setOtp} length={6} />
           </div>
 
-          {error && <div className="rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-600">{error}</div>}
+          {error && <div className="rounded-lg bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>}
 
-          <button type="submit" className="w-full rounded-2xl bg-[linear-gradient(180deg,#1695ff,#2167ff)] py-4 text-sm font-semibold text-white shadow-lg shadow-blue-200/60 transition hover:scale-[1.01]">
-            Verify and Continue
+          <div className="flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+            <span>{timer > 0 ? `Resend OTP (${timer}s)` : 'Resend OTP available'}</span>
+            <button type="button" onClick={handleResend} disabled={timer > 0} className="font-medium text-slate-900 disabled:text-slate-400">
+              Resend OTP
+            </button>
+          </div>
+
+          <button type="submit" className="w-full rounded-lg bg-[#111827] py-3 text-sm font-semibold text-white transition hover:bg-slate-800">
+            Verify OTP
           </button>
         </form>
-
-        <div className="mt-6 flex items-center justify-between rounded-3xl bg-slate-50 px-5 py-4 text-sm text-slate-500 ring-1 ring-slate-200/70">
-          <span>{timer > 0 ? `Resend available in ${timer}s` : 'You can request a new OTP now.'}</span>
-          <button type="button" onClick={handleResend} disabled={timer > 0} className="font-semibold text-blue-600 disabled:text-slate-300">
-            Resend OTP
-          </button>
-        </div>
       </div>
     </div>
   );

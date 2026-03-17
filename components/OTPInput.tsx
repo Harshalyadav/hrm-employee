@@ -21,7 +21,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ value, onChange, length = 6 }) => {
   };
 
   return (
-    <div className="flex gap-2 justify-center">
+    <div className="flex justify-center gap-3">
       {inputs.map((_, idx) => (
         <input
           key={idx}
@@ -32,7 +32,7 @@ const OTPInput: React.FC<OTPInputProps> = ({ value, onChange, length = 6 }) => {
           maxLength={1}
           value={value[idx] || ''}
           onChange={(e) => handleChange(idx, e.target.value.replace(/\D/, ''))}
-          className="w-10 h-10 text-center border rounded focus:outline-none focus:ring text-lg"
+          className="h-12 w-12 rounded-lg border border-slate-300 bg-white text-center text-lg font-semibold text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
         />
       ))}
     </div>

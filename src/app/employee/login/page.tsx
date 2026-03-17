@@ -6,7 +6,7 @@ import { findEmployeeByEmail, MOCK_OTP_CODE, setPendingEmployeeEmail } from '../
 
 function BrandMark() {
   return (
-    <div className="grid h-16 w-16 place-items-center rounded-3xl bg-[linear-gradient(180deg,#1695ff,#2167ff)] text-2xl font-black text-white shadow-xl shadow-blue-300/40">
+    <div className="grid h-14 w-14 place-items-center rounded-lg bg-[#111827] text-xl font-bold text-white">
       H
     </div>
   );
@@ -35,40 +35,39 @@ export default function EmployeeLoginPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-[linear-gradient(180deg,#7ec9f5_0%,#bce8ff_42%,#f8fcff_100%)] px-4 py-12">
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(255,255,255,0.8),transparent_42%),radial-gradient(circle_at_bottom_left,rgba(195,240,255,0.95),transparent_38%)]" />
-      <div className="relative w-full max-w-lg rounded-[34px] border border-white/70 bg-white/86 p-8 shadow-[0_30px_90px_rgba(63,135,191,0.18)] backdrop-blur md:p-10">
+    <div className="flex min-h-screen items-center justify-center bg-[#F9FAFB] px-4 py-12">
+      <div className="w-full max-w-md rounded-lg border border-slate-200 bg-white p-8 shadow-[0_2px_8px_rgba(15,23,42,0.08)] md:p-10">
         <div className="flex flex-col items-center text-center">
           <BrandMark />
-          <h1 className="mt-7 text-4xl font-black tracking-[-0.04em] text-slate-900">Employee Login</h1>
-          <p className="mt-3 max-w-sm text-sm text-slate-500">
-            Enter your employee email to receive a one-time code. Passwords are not used in this portal.
+          <h1 className="mt-6 text-3xl font-semibold text-slate-900">Employee Login</h1>
+          <p className="mt-2 max-w-sm text-sm text-slate-500">
+            Enter your employee email to receive a one-time password.
           </p>
         </div>
 
-        <form onSubmit={handleSubmit} className="mt-10 space-y-5">
+        <form onSubmit={handleSubmit} className="mt-8 space-y-5">
           <div>
-            <label htmlFor="email" className="mb-2 block text-sm font-semibold text-slate-500">Employee Email</label>
+            <label htmlFor="email" className="mb-2 block text-sm font-medium text-slate-700">Email Input</label>
             <input
               id="email"
               type="email"
-              className="w-full rounded-2xl border border-slate-200 bg-white px-4 py-4 text-sm text-slate-700 outline-none ring-2 ring-transparent transition focus:border-blue-300 focus:ring-blue-100"
-              placeholder="john.doe@example.com"
+              className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 outline-none transition focus:border-slate-900 focus:ring-2 focus:ring-slate-200"
+              placeholder="Enter Email"
               required
               value={email}
               onChange={(event) => setEmail(event.target.value)}
             />
           </div>
 
-          {error && <div className="rounded-2xl bg-rose-50 px-4 py-3 text-sm text-rose-600">{error}</div>}
+          {error && <div className="rounded-lg bg-rose-50 px-4 py-3 text-sm text-rose-700">{error}</div>}
 
-          <button type="submit" disabled={submitting} className="w-full rounded-2xl bg-[linear-gradient(180deg,#1695ff,#2167ff)] py-4 text-sm font-semibold text-white shadow-lg shadow-blue-200/60 transition hover:scale-[1.01] disabled:opacity-70">
-            {submitting ? 'Preparing OTP...' : 'Send OTP'}
+          <button type="submit" disabled={submitting} className="w-full rounded-lg bg-[#111827] py-3 text-sm font-semibold text-white transition hover:bg-slate-800 disabled:opacity-70">
+            {submitting ? 'Preparing OTP...' : 'Send OTP Button'}
           </button>
         </form>
 
-        <div className="mt-8 rounded-3xl bg-slate-50 px-5 py-4 text-sm text-slate-500 ring-1 ring-slate-200/70">
-          Demo OTP: <span className="font-black text-slate-800">{MOCK_OTP_CODE}</span>
+        <div className="mt-6 rounded-lg border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-600">
+          Demo OTP: <span className="font-semibold text-slate-900">{MOCK_OTP_CODE}</span>
         </div>
       </div>
     </div>
